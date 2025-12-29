@@ -21,25 +21,8 @@ This project detects cracks in concrete, pavements, and walls using deep learnin
 
 Download the SDNET2018 dataset from [USU Digital Commons](https://digitalcommons.usu.edu/all_datasets/48/).  
 
-**Folder structure after extraction:**
-
-```
-
-SDNET2018/
-├── D
-│   ├── CD
-│   └── UD
-├── P
-│   ├── CP
-│   └── UP
-└── W
-├── CW
-└── UW
-
-````
-
 - `D` = Doors, `P` = Pavement, `W` = Walls  
-- `C` = Cracked, `U` = Uncracked
+- `C` = Cracked, `U` = Uncracked (Inside of dataset folder)
 
 > **Note:** The dataset is large (~500 MB) and ignored in Git.
 
