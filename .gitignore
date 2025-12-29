@@ -1,0 +1,9 @@
+# Ignore dataset
+SDNET2018/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
