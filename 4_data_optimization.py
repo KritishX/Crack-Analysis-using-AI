@@ -29,4 +29,7 @@ print("Train:", train_df.shape, train_df["label"].value_counts())
 print("Validation:", val_df.shape, val_df["label"].value_counts())
 print("Test:", test_df.shape, test_df["label"].value_counts())
 
-
+train_df.to_csv("metadata/train.csv", index=False)
+val_df.to_csv("metadata/val.csv", index=False)
+test_df.to_csv("metadata/test.csv", index=False)
+print("Data split completed and saved!")
