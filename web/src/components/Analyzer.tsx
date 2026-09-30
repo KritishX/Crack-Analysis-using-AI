@@ -367,10 +367,20 @@ function ServerHelp({ state }: { state: ReturnType<typeof useService>["state"] }
             <code>best_model.pth</code>, then restart the API.
             <code className="code">python model_training.py</code>
           </>
-        ) : (
+        ) : import.meta.env.DEV ? (
           <>
             <strong>Start the inference server</strong> from the repository root.
             <code className="code">{"pip install -r api/requirements.txt\nuvicorn api.main:app --port 8000"}</code>
+          </>
+        ) : import.meta.env.VITE_API_URL ? (
+          <>
+            <strong>The inference server isn&rsquo;t responding.</strong> It may be starting up or
+            temporarily down. Try again in a moment.
+          </>
+        ) : (
+          <>
+            <strong>No inference server is connected.</strong> This deployment only hosts the
+            interface; set <code>VITE_API_URL</code> to point it at a running API.
           </>
         )}
       </div>

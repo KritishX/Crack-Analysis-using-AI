@@ -19,6 +19,7 @@ from pathlib import Path
 import torch
 import torch.nn as nn
 from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from PIL import Image, UnidentifiedImageError
 from torchvision import models, transforms
@@ -61,6 +62,12 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(title="Crack Analysis API", lifespan=lifespan)
+
+# Only needed when the UI is hosted on a different origin (e.g. Vercel).
+# Comma-separated list, e.g. CRACK_CORS_ORIGINS=https://crack-analysis.vercel.app
+cors_origins = [o.strip() for o in os.environ.get("CRACK_CORS_ORIGINS", "").split(",") if o.strip()]
+if cors_origins:
+    app.add_middleware(CORSMiddleware, allow_origins=cors_origins, allow_methods=["GET", "POST"])
 
 
 @app.get("/api/health")
