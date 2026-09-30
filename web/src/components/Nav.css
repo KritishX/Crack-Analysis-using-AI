@@ -1,0 +1,67 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  height: var(--nav-h);
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.nav__mark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 3vw, 28px);
+  font-size: 0.8125rem;
+  color: var(--text-2);
+}
+
+.nav__links a:not(.btn) {
+  transition: color 0.2s;
+}
+
+.nav__links a:not(.btn):hover {
+  color: var(--text);
+}
+
+.nav__gh {
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width: 560px) {
+  .nav__links a[href="#how"],
+  .nav__links a[href="#model"] {
+    display: none;
+  }
+}

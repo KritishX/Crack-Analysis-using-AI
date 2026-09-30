@@ -27,6 +27,12 @@ Data flows between stages through CSVs in `metadata/`, each with columns `image_
 - `data_preprocessing.py` runs at import time: it loads the split CSVs and builds transforms, `CrackDataset`, the three `DataLoader`s (batch 32, `num_workers=4`), inverse-frequency class weights, and the weighted `criterion`. `model_training.py` imports these as module-level globals, so importing it has side effects (reads CSVs, prints).
 - `model_training.py` uses `resnet18(pretrained=True)` with `fc` replaced by a 2-class head, Adam at lr 1e-4, 5 epochs, and keeps the checkpoint with the best validation F1 in `best_model.pth`, then reloads it for test evaluation.
 
+## Web UI and API
+
+- `api/main.py` (FastAPI) loads `best_model.pth` (override with `CRACK_MODEL_PATH`) and exposes `GET /api/health` and `POST /api/predict`. Its preprocessing must stay in sync with `test_transform` in `data_preprocessing.py`; it deliberately does not import that module because it reads the CSVs at import time. If `web/dist` exists it is served at `/`.
+- `web/` is a Vite + React 19 + TypeScript app using GSAP (`ScrollTrigger`, `DrawSVG`). Run from `web/`: `npm run dev` (proxies `/api` to `127.0.0.1:8000`), `npm run build` (runs `tsc -b` then `vite build`), `npm run typecheck`. There are no frontend tests.
+- Motion goes through `useMotion` in `web/src/lib/motion.ts`, which skips animation under `prefers-reduced-motion`. Section entrances use the masked-word pattern from `components/Words.tsx`.
+
 ## Gotchas
 
 - `SDNET2018/`, datasets, and `__pycache__/` are gitignored; `metadata/sdnet2018_full.csv` is committed and contains absolute-style paths from the original author's machine, so regenerate it with `3_data_cleaning.py` after extracting the data locally. The other split CSVs are not committed.

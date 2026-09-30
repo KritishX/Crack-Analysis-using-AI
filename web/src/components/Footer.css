@@ -1,0 +1,27 @@
+.footer {
+  padding-block: 0 48px;
+  background: #000;
+  color: #a1a1a6;
+  font-size: 0.8125rem;
+  letter-spacing: 0;
+  --link: #2997ff;
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer__note {
+  max-width: 60ch;
+}
+
+.footer__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 24px;
+}

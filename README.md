@@ -21,7 +21,7 @@ This project detects cracks in concrete, pavements, and walls using deep learnin
 
 Download the SDNET2018 dataset from [USU Digital Commons](https://digitalcommons.usu.edu/all_datasets/48/).  
 
-- `D` = Doors, `P` = Pavement, `W` = Walls  
+- `D` = Bridge decks, `P` = Pavement, `W` = Walls  
 - `C` = Cracked, `U` = Uncracked (Inside of dataset folder)
 
 > **Note:** The dataset is large (~500 MB) and ignored in Git.
@@ -169,6 +169,31 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 ---
 
+## Web UI 🖥️
+
+A React + TypeScript interface (Vite, GSAP) for trying the trained model on your own photos. It talks to a small FastAPI server that loads `best_model.pth`.
+
+**Run the inference API** (from the repo root, after training):
+
+```bash
+pip install -r api/requirements.txt
+uvicorn api.main:app --port 8000
+```
+
+**Develop the UI** (proxies `/api` to port 8000):
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+**Or serve everything from one process:** run `npm run build` in `web/`, then start the API as above. It serves `web/dist` at `http://localhost:8000`.
+
+Set `CRACK_MODEL_PATH` to load weights from somewhere other than `./best_model.pth`.
+
+---
+
 ## Project Structure 📁
 
 ```
@@ -178,6 +203,8 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 ├── 4_data_optimization.py        # Splitting & balancing dataset
 ├── data_preprocessing.py         # PyTorch Dataset & transforms
 ├── model_training.py             # Training & evaluation
+├── api/                          # FastAPI inference server (serves best_model.pth)
+├── web/                          # React + TypeScript UI (Vite, GSAP)
 ├── requirements.txt              # Dependencies
 └── SDNET2018/                    # Dataset (ignored)
 ```
